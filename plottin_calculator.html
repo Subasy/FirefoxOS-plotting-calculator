@@ -1,0 +1,58 @@
+<html>
+	<head>
+		<title>Générateur de fonctions javascript</title>
+	</head>
+	
+	<body>
+	<input type = "text" id="exp"><a href=javascript:calculer()><button>ok</button></a>
+	<br>
+	<br>
+	<canvas id="myCanvas" width="200" height="200"></canvas>
+		<script>
+		
+		function calculer(){
+		
+			valeurs_x=new Array();
+			valeurs_y=new Array();
+			
+			var x;
+			var y;
+			
+			expression = document.getElementById("exp").value;
+
+			if(expression.contains("x")){
+				for(i=0;i<=10000;i++){
+					x=i;
+					valeurs_x.push(x);
+					y=eval(expression);
+					valeurs_y.push(y);
+				}
+			}
+
+
+			var canvas = document.getElementById('myCanvas');
+			var context = canvas.getContext('2d');
+			//canvas.setAttribute("width", window.innerWidth);
+			//canvas.setAttribute("height", window.innerHeight);
+			canvas.setAttribute("style", "position: absolute; x:0; y:0;");
+			context.translate(canvas.width / 2, canvas.height / 2);
+			context.beginPath();
+			
+			var j=0;
+
+			context.moveTo(0,0);
+			
+			while(j<10000){
+				context.lineTo(valeurs_x[j],(valeurs_y[j]) * -1);
+				j++;
+			}
+
+			context.lineWidth = 5;
+			context.strokeStyle = 'red';
+			context.stroke();
+		}
+		
+		
+		</script>
+	</body>
+</html>
