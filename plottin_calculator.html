@@ -27,7 +27,45 @@
 
 				//Si l'expression contient une variable x
 				if(expression.contains("x")){
+					if(expression.contains("sin")){
+						expression=expression.replace("sin", "Math.sin");
+					}
 					
+					if(expression.contains("cos")){
+						expression=expression.replace("cos", "Math.cos");
+					}
+					
+					if(expression.contains("abs")){
+						expression=expression.replace("abs", "Math.abs");
+					}
+					
+					if(expression.contains("ceil")){
+						expression=expression.replace("ceil", "Math.ceil");
+					}
+					
+					if(expression.contains("floor")){
+						expression=expression.replace("floor", "Math.floor");
+					}
+					
+					if(expression.contains("round")){
+						expression=expression.replace("round", "Math.round");
+					}
+					
+					if(expression.contains("sqrt")){
+						expression=expression.replace("sqrt", "Math.sqrt");
+					}
+					
+					if(expression.contains("exp")){
+						expression=expression.replace("exp", "Math.exp");
+					}
+					
+					if(expression.contains("log")){
+						expression=expression.replace("log", "Math.log");
+					}
+					
+					if(expression.contains("tan")){
+						expression=expression.replace("tan", "Math.tan");
+					}
 					//Pour 20000 milles valeurs
 					for(i=-10000;i<=10000;i++){
 					
@@ -84,35 +122,35 @@
 			}
 			
 			//Fonction calculant les axes
-				function showAxes(ctx,axes) {
-				
-					var x0=axes.x0, w=ctx.canvas.width;
-					var y0=axes.y0, h=ctx.canvas.height;
-					var xmin = axes.doNegativeX ? 0 : x0;
+			function showAxes(ctx,axes) {
+			
+				var x0=axes.x0, w=ctx.canvas.width;
+				var y0=axes.y0, h=ctx.canvas.height;
+				var xmin = axes.doNegativeX ? 0 : x0;
 
-					ctx.beginPath();
-					ctx.strokeStyle = "rgb(128,128,128)"; 
-					ctx.moveTo(xmin,y0); ctx.lineTo(w,y0);  // X axis
-					ctx.moveTo(x0,0);    ctx.lineTo(x0,h);  // Y axis
-					ctx.stroke();
-					
-				}
+				ctx.beginPath();
+				ctx.strokeStyle = "rgb(128,128,128)"; 
+				ctx.moveTo(xmin,y0); ctx.lineTo(w,y0);  // X axis
+				ctx.moveTo(x0,0);    ctx.lineTo(x0,h);  // Y axis
+				ctx.stroke();
+				
+			}
 
-				//récupération de l'emplacement du canvas
-				var canvas = document.getElementById('myCanvas');
-				
-				//définition du style du canvas
-				var context = canvas.getContext('2d');
-				
-				//dessiner les axes
-				var axes={}, ctx=canvas.getContext("2d");
-				
-				axes.x0 = .5 + .5*canvas.width;  // x0 pixels from left to x=0
-				axes.y0 = .5 + .5*canvas.height; // y0 pixels from top to y=0
-				axes.scale = 40;                 // 40 pixels from x=0 to x=1
-				axes.doNegativeX = true;
-				showAxes(ctx,axes);
-				
+			//récupération de l'emplacement du canvas
+			var canvas = document.getElementById('myCanvas');
+			
+			//définition du style du canvas
+			var context = canvas.getContext('2d');
+			
+			//dessiner les axes
+			var axes={}, ctx=canvas.getContext("2d");
+			
+			axes.x0 = .5 + .5*canvas.width;  // x0 pixels from left to x=0
+			axes.y0 = .5 + .5*canvas.height; // y0 pixels from top to y=0
+			axes.scale = 40;                 // 40 pixels from x=0 to x=1
+			axes.doNegativeX = true;
+			showAxes(ctx,axes);
+		
 		</script>
 	</body>
 </html>
