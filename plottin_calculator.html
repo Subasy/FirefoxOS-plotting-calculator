@@ -1,13 +1,21 @@
 <html>
 	<head>
 		<title>Générateur de fonctions javascript</title>
+		<link rel="stylesheet" type="text/css" href="style.css"/>
 	</head>
 	
 	<body>
-	<input type = "text" id="exp"><a href="javascript:calculer()"><button>ok</button></a>
-	<button onclick="javascript:location.reload();">Recharger</button>
+	<table>
+	<tr>
+	<input class="input_class" type = "text" id="exp">
 	<br>
 	<br>
+	<a href="javascript:calculer()"><button class="button_ok">ok</button></a>
+	<button class="button_recharger" onclick="javascript:location.reload();">Recharger</button>
+	<br>
+	<br>
+	</tr>
+	<tr>
 	<canvas id="myCanvas" width="500" height="500"></canvas>
 		<script>		
 			
@@ -114,7 +122,7 @@
 				context.lineWidth = 1;
 				
 				//couleur de la ligne
-				context.strokeStyle = 'red';
+				context.strokeStyle = 'blue';
 				
 				//tracer la ligne
 				context.stroke();
@@ -152,5 +160,7 @@
 			showAxes(ctx,axes);
 		
 		</script>
+		</tr>
+		</table>
 	</body>
 </html>
