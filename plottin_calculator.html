@@ -1,58 +1,118 @@
 <html>
 	<head>
-		<title>G�n�rateur de fonctions javascript</title>
+		<title>Générateur de fonctions javascript</title>
 	</head>
 	
 	<body>
-	<input type = "text" id="exp"><a href=javascript:calculer()><button>ok</button></a>
+	<input type = "text" id="exp"><a href="javascript:calculer()"><button>ok</button></a>
+	<button onclick="javascript:location.reload();">Recharger</button>
 	<br>
 	<br>
-	<canvas id="myCanvas" width="200" height="200"></canvas>
-		<script>
-		
-		function calculer(){
-		
-			valeurs_x=new Array();
-			valeurs_y=new Array();
+	<canvas id="myCanvas" width="500" height="500"></canvas>
+		<script>		
 			
-			var x;
-			var y;
-			
-			expression = document.getElementById("exp").value;
+			function calculer(){
+				
+				//tableau des valeurs des abscisses
+				valeurs_x=new Array();
+				
+				//tableau des valeurs des ordonnées
+				valeurs_y=new Array();
+				
+				var x; // la variable des abscisses
+				var y; // la variable des ordonnées
+				
+				//Récupération de la formule dans l'input d'id exp
+				expression = document.getElementById("exp").value;
 
-			if(expression.contains("x")){
-				for(i=0;i<=10000;i++){
-					x=i;
-					valeurs_x.push(x);
-					y=eval(expression);
-					valeurs_y.push(y);
+				//Si l'expression contient une variable x
+				if(expression.contains("x")){
+					
+					//Pour 20000 milles valeurs
+					for(i=-10000;i<=10000;i++){
+					
+						//x prend la valeur de i
+						x=i;
+						
+						//Ajout de i dans le tableau des abscisses
+						valeurs_x.push(x);
+						
+						//évaluation de l'expression
+						y=eval(expression);
+						
+						//Ajout de la valeur de y dans le tableau des ordonnées
+						valeurs_y.push(y);
+					}
 				}
+				
+				
+				//récupération de l'emplacement du canvas
+				var canvas = document.getElementById('myCanvas');
+				
+				//définition du style du canvas
+				var context = canvas.getContext('2d');
+				
+				//placement de l'origine au milieu du canvas
+				canvas.setAttribute("style", "position: absolute; x:0; y:0;");
+				context.translate(canvas.width / 2, canvas.height / 2);
+				context.beginPath();
+				
+				//initation de la variable permettant le parcours des tableaux de coordonnées.
+				var j=0;
+				
+				//Se placer à l'origine
+				context.moveTo(0,0);
+				
+				//Tant qu'ils existe des valeur dans le tableau
+				while(j<20000){
+				
+					//Tracer la liaison vers le point suivant
+					context.lineTo(valeurs_x[j],(valeurs_y[j]) * -1);
+					j++;
+					
+				}
+
+				//épaisseur de la ligne
+				context.lineWidth = 1;
+				
+				//couleur de la ligne
+				context.strokeStyle = 'red';
+				
+				//tracer la ligne
+				context.stroke();
+				
 			}
-
-
-			var canvas = document.getElementById('myCanvas');
-			var context = canvas.getContext('2d');
-			//canvas.setAttribute("width", window.innerWidth);
-			//canvas.setAttribute("height", window.innerHeight);
-			canvas.setAttribute("style", "position: absolute; x:0; y:0;");
-			context.translate(canvas.width / 2, canvas.height / 2);
-			context.beginPath();
 			
-			var j=0;
+			//Fonction calculant les axes
+				function showAxes(ctx,axes) {
+				
+					var x0=axes.x0, w=ctx.canvas.width;
+					var y0=axes.y0, h=ctx.canvas.height;
+					var xmin = axes.doNegativeX ? 0 : x0;
 
-			context.moveTo(0,0);
-			
-			while(j<10000){
-				context.lineTo(valeurs_x[j],(valeurs_y[j]) * -1);
-				j++;
-			}
+					ctx.beginPath();
+					ctx.strokeStyle = "rgb(128,128,128)"; 
+					ctx.moveTo(xmin,y0); ctx.lineTo(w,y0);  // X axis
+					ctx.moveTo(x0,0);    ctx.lineTo(x0,h);  // Y axis
+					ctx.stroke();
+					
+				}
 
-			context.lineWidth = 5;
-			context.strokeStyle = 'red';
-			context.stroke();
-		}
-		
-		
+				//récupération de l'emplacement du canvas
+				var canvas = document.getElementById('myCanvas');
+				
+				//définition du style du canvas
+				var context = canvas.getContext('2d');
+				
+				//dessiner les axes
+				var axes={}, ctx=canvas.getContext("2d");
+				
+				axes.x0 = .5 + .5*canvas.width;  // x0 pixels from left to x=0
+				axes.y0 = .5 + .5*canvas.height; // y0 pixels from top to y=0
+				axes.scale = 40;                 // 40 pixels from x=0 to x=1
+				axes.doNegativeX = true;
+				showAxes(ctx,axes);
+				
 		</script>
 	</body>
 </html>
