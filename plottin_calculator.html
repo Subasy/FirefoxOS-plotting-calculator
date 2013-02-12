@@ -34,7 +34,6 @@
 				expression = document.getElementById("exp").value;
 
 				//Si l'expression contient une variable x
-				if(expression.contains("x")){
 					if(expression.contains("sin")){
 						expression=expression.replace("sin", "Math.sin");
 					}
@@ -89,7 +88,6 @@
 						//Ajout de la valeur de y dans le tableau des ordonnées
 						valeurs_y.push(y);
 					}
-				}
 				
 				
 				//récupération de l'emplacement du canvas
