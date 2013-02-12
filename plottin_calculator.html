@@ -110,10 +110,11 @@
 				context.moveTo(0,0);
 				
 				//Tant qu'ils existe des valeur dans le tableau
-				while(j<20000){
+				while(j<19999){
 				
 					//Tracer la liaison vers le point suivant
-					context.lineTo(valeurs_x[j],(valeurs_y[j]) * -1);
+					context.moveTo(10*valeurs_x[j],10*(valeurs_y[j])* -1);
+					context.lineTo(10*valeurs_x[j+1],10*(valeurs_y[j+1]) * -1);
 					j++;
 					
 				}
@@ -144,6 +145,7 @@
 				
 			}
 
+			
 			//récupération de l'emplacement du canvas
 			var canvas = document.getElementById('myCanvas');
 			
