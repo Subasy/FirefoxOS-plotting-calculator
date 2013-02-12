@@ -1,5 +1,4 @@
-
-	<html>
+<html>
 	<head>
 		<title>Générateur de fonctions javascript</title>
 		<link rel="stylesheet" type="text/css" href="style.css"/>
@@ -123,10 +122,18 @@
 				}
 
 				//épaisseur de la ligne
-				context.lineWidth = 1;
+				context.lineWidth = 2;
 				
+				function get_random_color() {
+					var letters = '0123456789ABCDEF'.split('');
+					var color = '#';
+					for (var i = 0; i < 6; i++ ) {
+						color += letters[Math.round(Math.random() * 10)];
+					}
+					return color;
+				}
 				//couleur de la ligne
-				context.strokeStyle = 'blue';
+				context.strokeStyle = get_random_color();
 				
 				//tracer la ligne
 				context.stroke();
