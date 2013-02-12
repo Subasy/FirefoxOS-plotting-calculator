@@ -1,4 +1,5 @@
-<html>
+
+	<html>
 	<head>
 		<title>Générateur de fonctions javascript</title>
 		<link rel="stylesheet" type="text/css" href="style.css"/>
@@ -100,6 +101,8 @@
 				
 				//placement de l'origine au milieu du canvas
 				canvas.setAttribute("style", "position: absolute; x:0; y:0;");
+				context.restore();
+				context.save();
 				context.translate(canvas.width / 2, canvas.height / 2);
 				context.beginPath();
 				
@@ -107,7 +110,7 @@
 				var j=0;
 				
 				//Se placer à l'origine
-				context.moveTo(0,0);
+				//context.moveTo(0,0);
 				
 				//Tant qu'ils existe des valeur dans le tableau
 				while(j<19999){
@@ -160,6 +163,8 @@
 			axes.scale = 40;                 // 40 pixels from x=0 to x=1
 			axes.doNegativeX = true;
 			showAxes(ctx,axes);
+
+			
 		
 		</script>
 		</tr>
