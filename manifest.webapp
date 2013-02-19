@@ -1,11 +1,14 @@
 {
   "name": "Plotting calculator",
   "description": "A plotting calculator for firefox OS",
+  "launch_path": "./index.html",
+  "icons": {
+    "128": "./icon_32.png"
+  },
   "developer": {
-    "name": "Sylvie Ranga, Student at Université d'Evry-Val-d'Essonne, France",
+    "name": "Plotting calculator",
     "url": "https://github.com/Subasy/FirefoxOS-plotting-calculator"
   },
-  "fullscreen": "true",
-  "launch_path": "/FirefoxOS-plotting-calculator/index.html",
-  "version": "1.0",
+  "default_locale": "en",
+  "version": "1.0,
 }
