@@ -1,7 +1,7 @@
 FirefoxOS-plotting-calculator
 =============================
 
-Mozilla Student Project from Université-d'Evry-Val-d'Esonne
+Mozilla Student Project from Université-d'Evry-Val-d'Essonne.
 
 This project consist on creating a plotting calculator for Firefox OS.
 
