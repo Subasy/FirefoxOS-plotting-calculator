@@ -9,6 +9,6 @@ This project consist on creating a plotting calculator for Firefox OS.
 How does it work ?
 ------------------
 
-1. The application user enter a fucntioon.
+1. The application user enter a function.
 2. The corresponding function is printed.
 3. Other options would be implemented along the project.
