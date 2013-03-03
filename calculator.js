@@ -1,3 +1,4 @@
+//Fonction permettant de calculer le résultat des différentes fonctions
 function calculer(){
 		
 	//tableau des valeurs des abscisses
