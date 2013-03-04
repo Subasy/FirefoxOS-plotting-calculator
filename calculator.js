@@ -142,8 +142,8 @@ function showAxes(ctx,axes) {
 	
 	//dessiner les axes
 	var axes={}, ctx=canvas.getContext("2d");
-	canvas.width=window.innerWidth;
-	canvas.height=window.innerHeight;
+	canvas.width=window.innerWidth-window.innerWidth/5;
+	canvas.height=window.innerHeight-window.innerHeight/3;
 	axes.x0 = .5 + .5*canvas.width;  // x0 pixels from left to x=0
 	axes.y0 = .5 + .5*canvas.height; // y0 pixels from top to y=0
 	axes.scale = 40;                 // 40 pixels from x=0 to x=1
