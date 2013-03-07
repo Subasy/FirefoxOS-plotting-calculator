@@ -1,124 +1,11 @@
-//Fonction permettant de calculer le résultat des différentes fonctions
-function calculer(){
-  	
-	//tableau des valeurs des abscisses
-	valeurs_x=new Array();
-	
-	//tableau des valeurs des ordonnées
-	valeurs_y=new Array();
-	
-	var x; // la variable des abscisses
-	var y; // la variable des ordonnées
-	
-	//Récupération de la formule dans l'input d'id exp
-	expression = document.getElementById("exp").value;
+var canvas;
+var context; 
 
-	//Si l'expression contient une variable x
-		if(expression.contains("sin")){
-			expression=expression.replace("sin", "Math.sin");
-		}
-		
-		if(expression.contains("cos")){
-			expression=expression.replace("cos", "Math.cos");
-		}
-		
-		if(expression.contains("abs")){
-			expression=expression.replace("abs", "Math.abs");
-		}
-		
-		if(expression.contains("ceil")){
-			expression=expression.replace("ceil", "Math.ceil");
-		}
-		
-		if(expression.contains("floor")){
-			expression=expression.replace("floor", "Math.floor");
-		}
-		
-		if(expression.contains("round")){
-			expression=expression.replace("round", "Math.round");
-		}
-		
-		if(expression.contains("sqrt")){
-			expression=expression.replace("sqrt", "Math.sqrt");
-		}
-		
-		if(expression.contains("exp")){
-			expression=expression.replace("exp", "Math.exp");
-		}
-		
-		if(expression.contains("log")){
-			expression=expression.replace("log", "Math.log");
-		}
-		
-		if(expression.contains("tan")){
-			expression=expression.replace("tan", "Math.tan");
-		}
-		//Pour 20000 milles valeurs
-		for(i=-10000;i<=10000;i++){
-		
-			//x prend la valeur de i
-			x=i;
-			
-			//Ajout de i dans le tableau des abscisses
-			valeurs_x.push(x);
-			
-			//évaluation de l'expression
-			y=eval(expression);
-			
-			//Ajout de la valeur de y dans le tableau des ordonnées
-			valeurs_y.push(y);
-		}
-	
-	
-	//récupération de l'emplacement du canvas
-	var canvas = document.getElementById('myCanvas');
-	
-	//définition du style du canvas
-	var context = canvas.getContext('2d');
-	
-	//placement de l'origine au milieu du canvas
-	canvas.setAttribute("style", "position: absolute; x:0; y:0;");
-	context.restore();
-	context.save();
-	context.translate(canvas.width / 2, canvas.height / 2);
-	context.beginPath();
-	
-	//initation de la variable permettant le parcours des tableaux de coordonnées.
-	var j=0;
-	
-	//Se placer à l'origine
-	//context.moveTo(0,0);
-	
-	//Tant qu'ils existe des valeur dans le tableau
-	while(j<19999){
-	
-		//Tracer la liaison vers le point suivant
-		context.moveTo(10*valeurs_x[j],10*(valeurs_y[j])* -1);
-		context.lineTo(10*valeurs_x[j+1],10*(valeurs_y[j+1]) * -1);
-		j++;
-		
-	}
+canvas = document.getElementById('myCanvas');//Get the canvas
+context = canvas.getContext('2d'); //had a style for the canvas
+drawAxes(); // Draw the axes.
 
-	//épaisseur de la ligne
-	context.lineWidth = 2;
-	
-	function get_random_color() {
-		var letters = '0123456789ABCDEF'.split('');
-		var color = '#';
-		for (var i = 0; i < 6; i++ ) {
-			color += letters[Math.round(Math.random() * 10)];
-		}
-		return color;
-	}
-	//couleur de la ligne
-	context.strokeStyle = get_random_color();
-	
-	//tracer la ligne
-	context.stroke();
-	
-}
-
-//Fonction calculant les axes
+//Function : calculate axes dimensions.
 function showAxes(ctx,axes) {
 
 	var x0=axes.x0, w=ctx.canvas.width;
@@ -133,21 +20,128 @@ function showAxes(ctx,axes) {
 	
 }
 
-			
-	//récupération de l'emplacement du canvas
-	var canvas = document.getElementById('myCanvas');
-	
-	//définition du style du canvas
-	var context = canvas.getContext('2d');
-	
-	//dessiner les axes
-	var axes={}, ctx=canvas.getContext("2d");
+//Function: draw axes.
+function drawAxes(){
+
+	var axes={};//, ctx=canvas.getContext("2d");
 	canvas.width=window.innerWidth-window.innerWidth/5;
 	canvas.height=window.innerHeight-window.innerHeight/3;
 	axes.x0 = .5 + .5*canvas.width;  // x0 pixels from left to x=0
 	axes.y0 = .5 + .5*canvas.height; // y0 pixels from top to y=0
-	axes.scale = 40;                 // 40 pixels from x=0 to x=1
+	axes.scale = 10;                 // 40 pixels from x=0 to x=1
 	axes.doNegativeX = true;
-	showAxes(ctx,axes);
-			
+	showAxes(context,axes);
+	canvas.setAttribute("style", "position: absolute; x:0; y:0;");
+	context.translate(canvas.width / 2, canvas.height / 2);
+}
+
+//Function : generate random colors.
+function get_random_color() {
+	var letters = '0123456789ABCDEF'.split('');
+	var color = '#';
+	for (var i = 0; i < 6; i++ ) {
+		color += letters[Math.round(Math.random() * 10)];
+	}
+	return color;
+}
+
+//Function : calculate the mathematic expression and print it.
+function calculate(){
+
+ 	drawAxes(); // draw the axes.
+	
+   var replacement = new Function("expression","value",
+		"var sin=\"Math.sin\";\n"+
+		"var cos=\"Math.cos\";\n"+
+		"var abs=\"Math.abs\";\n"+
+		"var ceil=\"Math.ceil\";\n"+
+		"var floor=\"Math.floor\";\n"+
+		"var round=\"Math.round\";\n"+
+		"var sqrt=\"Math.sqrt\";\n"+
+		"var exp=\"Math.exp\";\n"+
+		"var log=\"Math.log\";\n"+
+		"var tan=\"Math.tan\";\n"+
+	
+		"if(expression.contains(\"sin\")){\n"+
+			"expression=expression.replace(\"sin\", sin);\n"+
+		"}\n"+
 		
+		"if(expression.contains(\"cos\")){\n"+
+			"expression=expression.replace(\"cos\", cos);\n"+
+		"}\n"+
+		
+		"if(expression.contains(\"abs\")){\n"+
+			"expression=expression.replace(\"abs\", abs);\n"+
+		"}\n"+
+		
+		"if(expression.contains(\"ceil\")){\n"+
+			"expression=expression.replace(\"ceil\", ceil);\n"+
+		"}\n"+
+		
+		"if(expression.contains(\"floor\")){\n"+
+			"expression=expression.replace(\"floor\", floor);\n"+
+		"}\n"+
+		
+		"if(expression.contains(\"round\")){\n"+
+			"expression=expression.replace(\"round\", round);\n"+
+		"}\n"+
+		
+		"if(expression.contains(\"sqrt\")){\n"+
+			"expression=expression.replace(\"sqrt\", sqrt);\n"+
+		"}\n"+
+		
+		"if(expression.contains(\"exp\")){\n"+
+			"expression=expression.replace(\"exp\", exp);\n"+
+		"}\n"+
+		
+		"if(expression.contains(\"log\")){\n"+
+			"expression=expression.replace(\"log\", log);\n"+
+		"}\n"+
+		
+		"if(expression.contains(\"tan\")){\n"+
+			"expression=expression.replace(\"tan\", tan);\n"+
+		"}\n"+
+		
+		"x=value;\n"+
+		
+		"return eval(expression);\n");
+		
+	valeurs_x=new Array(); 	//x values array
+	valeurs_y=new Array(); 	//y values array
+	
+	var x; // x value variable
+	var y; // y value variable
+	
+	//Get the formula entered the user.
+	expression = document.getElementById("exp").value;
+
+		//for 20000 values of x.
+		for(i=-window.innerWidth;i<=window.innerWidth;i++){
+		
+			x=i; //x take i value
+			valeurs_x.push(x); //add x to the x .
+			y=replacement(expression,x); //evaluate the formula.
+			valeurs_y.push(y); //Add the evaluated value of y in y array.
+		}
+	
+	context.beginPath(); // init the drawing path
+	
+	var j=0; //a variable to lookup the arrays values.
+
+	//While the array has values.
+	while(j<window.innerWidth*2){
+	
+		//Draw the liaison beetween x and y values.
+		context.moveTo(10*valeurs_x[j],10*(valeurs_y[j])* -1);
+		context.lineTo(10*valeurs_x[j+1],10*(valeurs_y[j+1]) * -1);
+		j++;
+		
+	}
+
+	context.lineWidth = 2; //line growth
+	context.strokeStyle = get_random_color(); // line color
+	context.stroke(); // draw the lines
+	
+}
+
+
