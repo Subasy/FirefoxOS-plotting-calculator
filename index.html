@@ -1,13 +1,16 @@
 <html>
  	 <head>
 		<title>Plotting calculator</title>
-		<link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+		<link rel="stylesheet" type="text/css" href="style.css"/>
 	</head>
-
+	
 	<body>
 	<table>
 	<tr>
-	F(X) = <input class="input_class" type = "text" id="exp">
+	F(X) = <input class="input_class" type = "text" id="expY"> 
+	<br>
+	<br>
+	F(Y) = <input class="input_class" type = "text" id="expX">
 	<br>
 	<br>
 	<button onclick="calculate()" class="button_ok">Print the graph !</button></a>
@@ -16,8 +19,9 @@
 	</tr>
 	<tr>
 	<canvas id="myCanvas"></canvas>
-	<script src="javascripts/calculator.js"></script>
+	<script src="calculator.js"></script>
 	</tr>
 	</table>
 	</body>
 </html>
+
