@@ -48,9 +48,17 @@ function get_random_color() {
 //Function : calculate the mathematic expression and print it.
 function calculate(){
 
- 	drawAxes(); // draw the axes.
-	
-   var replacement = new Function("expression","value",
+	var buffer1=new ArrayBuffer(1000*4); //buffer for x values
+	var buffer2=new ArrayBuffer(1000*4); // buffer for y values
+	var valeurs_x=new Int32Array(buffer1); 	//typed array for x values
+	var valeurs_y=new Int32Array(buffer2); 	//typed array for y values
+	var j=0; // an iterator
+	var x; // x value variable
+	var y; // y value variable
+	var expressionY = document.getElementById("expY").value;//Get the formula entered the user for F(Y)
+	var expressionX= document.getElementById("expX").value; //Get the formule entered by the user for F(X)
+	var ok=true;
+	var replacement = new Function("expression","value",
 		"var sin=\"Math.sin\";\n"+
 		"var cos=\"Math.cos\";\n"+
 		"var abs=\"Math.abs\";\n"+
@@ -102,45 +110,83 @@ function calculate(){
 			"expression=expression.replace(\"tan\", tan);\n"+
 		"}\n"+
 		
+		"if(expression.contains(\"x\")){\n"+
 		"x=value;\n"+
-		
+		"}"+
+		"if(expression.contains(\"y\")){\n"+
+		"y=value;\n"+
+		"}"+
 		"return eval(expression);\n");
 		
-	valeurs_x=new Array(); 	//x values array
-	valeurs_y=new Array(); 	//y values array
+	drawAxes(); // draw the axes.
 	
-	var x; // x value variable
-	var y; // y value variable
-	
-	//Get the formula entered the user.
-	expression = document.getElementById("exp").value;
-
-		//for 20000 values of x.
-		for(i=-window.innerWidth;i<=window.innerWidth;i++){
+	if(expressionY != "" && expressionX != ""){
+		alert("You must enter only one expression ! ");
+		ok =false;
+	}
 		
-			x=i; //x take i value
-			valeurs_x.push(x); //add x to the x .
-			y=replacement(expression,x); //evaluate the formula.
-			valeurs_y.push(y); //Add the evaluated value of y in y array.
-		}
-	
-	context.beginPath(); // init the drawing path
-	
-	var j=0; //a variable to lookup the arrays values.
+	if(expressionY.contains("y")){
+		alert("You must only enter an expression containing x");
+		expressionY="";
+	}
 
-	//While the array has values.
-	while(j<window.innerWidth*2){
+	if(expressionX.contains("x")){
+		alert("You must only enter an expression containing y");
+		expressionX="";
+	}
 	
+	if(expressionY != "" && ok){
+		//for 20000 values of x.
+		for(i=-500;i<=500;i++){
+
+			valeurs_x[j]=i; //add x to the x .
+			y=replacement(expressionY,i); //evaluate the formula.
+			valeurs_y[j]=y; //Add the evaluated value of y in y array.
+			j++;
+		}
+
+		context.beginPath(); // init the drawing path
+
+		var j=0; //a variable to lookup the arrays values.
+
+		//While the array has values.
+		while(j<1000){
+
 		//Draw the liaison beetween x and y values.
 		context.moveTo(10*valeurs_x[j],10*(valeurs_y[j])* -1);
 		context.lineTo(10*valeurs_x[j+1],10*(valeurs_y[j+1]) * -1);
 		j++;
-		
-	}
 
+		}
+	}
+	
+	if(expressionX != "" && ok){
+		//for 20000 values of x.
+		for(i=-500;i<=500;i++){
+			valeurs_y[j]=i; //add x to the x .
+			x=replacement(expressionX,i); //evaluate the formula.
+			valeurs_x[j]=x; //Add the evaluated value of y in y array.
+			j++;
+		}
+		
+		context.beginPath(); // init the drawing path
+		
+		j=0; //a variable to lookup the arrays values.
+
+		//While the array has values.
+		while(j<1000){
+			//Draw the liaison beetween x and y values.
+			context.moveTo(10*valeurs_x[j],10*(valeurs_y[j])* -1);
+			context.lineTo(10*valeurs_x[j+1],10*(valeurs_y[j+1]) * -1);
+			j++;	
+		}
+	
+	}
+	
 	context.lineWidth = 2; //line growth
 	context.strokeStyle = get_random_color(); // line color
 	context.stroke(); // draw the lines
+	
 	
 }
 
