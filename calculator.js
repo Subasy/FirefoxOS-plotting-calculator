@@ -90,20 +90,18 @@ function calculate(){
   }
 
   context.beginPath(); 
-
-  j=0; 
-
+  
   //Draw the graph
-  while(j < valeurs_x.length){
+  for(j=0;j<valeurs_x.length;j++){
 	context.moveTo(10*valeurs_x[j],10*(valeurs_y[j]) * -1);
 	context.lineTo(10*valeurs_x[j+1],10*(valeurs_y[j+1]) * -1);	
-	j=j+1;
   }
   
   context.lineWidth = 2; 
   context.strokeStyle = get_random_color(); 
   context.stroke(); 	
 }
+
 
 
 
