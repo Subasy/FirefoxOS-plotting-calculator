@@ -56,33 +56,34 @@ function calculate(){
   var x;
   var y; 
   var expressionY = document.getElementById("expY").value;
-  var minX = eval(document.getElementById("minX").value);
-  var maxX = eval(document.getElementById("maxX").value);
-  var minY = eval(document.getElementById("minY").value);
-  var maxY = eval(document.getElementById("maxY").value);
+  var minX = parseFloat(document.getElementById("minX").value);
+  var maxX = parseFloat(document.getElementById("maxX").value);
+  var minY = parseFloat(document.getElementById("minY").value);
+  var maxY = parseFloat(document.getElementById("maxY").value);
  
   //evaluate the expression entered by the user with the x value.
   var expression = eval("(function(x) {"+
+    "var ln=Math.ln;"+
     "var sin=Math.sin;"+
     "var cos=Math.cos;"+
-	"var abs=Math.abs;"+
-	"var ceil=Math.ceil;"+
-	"var floor=Math.floor;"+
-	"var round=Math.round;"+
-	"var sqrt=Math.sqrt;"+
-	"var exp=Math.exp;"+
-	"var log=Math.log;"+
-	"var tan=Math.tan;"+
-	"var x=x;"+
-	"return "+expressionY+";})");
+    "var abs=Math.abs;"+
+    "var ceil=Math.ceil;"+
+    "var floor=Math.floor;"+
+    "var round=Math.round;"+
+    "var sqrt=Math.sqrt;"+
+    "var exp=Math.exp;"+
+    "var log=Math.log;"+
+    "var tan=Math.tan;"+
+    "var x=x;"+
+    "return "+expressionY+";})");
 	
   drawAxes(); 
 
   //get only the values of the domain indicated by the user.
-  for(i=minX; i<=maxX; i=i+0.1){
-    y=expression(i);
+  for(x=minX; x<=maxX; x=x+0.1){
+    y=expression(x);
 	if(y>=minY && y<=maxY){
-	  valeurs_x[j]=i;
+	  valeurs_x[j]=x;
 	  valeurs_y[j]=y;
 	  j++;
 	}
@@ -103,6 +104,3 @@ function calculate(){
   context.strokeStyle = get_random_color(); 
   context.stroke(); 	
 }
-
-
-
