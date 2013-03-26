@@ -52,57 +52,47 @@ function calculate(){
   var buffer2=new ArrayBuffer(1000*4); 
   var valeurs_x=new Float32Array(buffer1); 	
   var valeurs_y=new Float32Array(buffer2); 	
-  var j=0; 
-  var x;
-  var y; 
   var expressionY = document.getElementById("expY").value;
   var minX = parseFloat(document.getElementById("minX").value);
   var maxX = parseFloat(document.getElementById("maxX").value);
   var minY = parseFloat(document.getElementById("minY").value);
   var maxY = parseFloat(document.getElementById("maxY").value);
  
-  //evaluate the expression entered by the user with the x value.
-  var expression = eval("(function(x) {"+
-    "var ln=Math.ln;"+
-    "var sin=Math.sin;"+
-    "var cos=Math.cos;"+
-    "var abs=Math.abs;"+
-    "var ceil=Math.ceil;"+
-    "var floor=Math.floor;"+
-    "var round=Math.round;"+
-    "var sqrt=Math.sqrt;"+
-    "var exp=Math.exp;"+
-    "var log=Math.log;"+
-    "var tan=Math.tan;"+
-    "var x=x;"+
-    "return "+expressionY+";})");
-	
-  drawAxes(); 
+  this.worker = new Worker('myWorker.js');
+  this.worker.addEventListener('message', function(e) {
+    var data = e.data;
+	if(data.cmd!=undefined){
+	  switch(data.cmd){
+	  case WORKER_MESSAGE.CMD1:
+	    this.valeurs_x=data.valeurs_x;
+		this.valeurs_y=data.valeurs_y;
+		
+		context.beginPath(); 
+			
+		for(j=0;j<valeurs_x.length;j++){
+		  context.moveTo(10*this.valeurs_x[j],10*(this.valeurs_y[j]) * -1);
+		  context.lineTo(10*this.valeurs_x[j+1],10*(this.valeurs_y[j+1]) * -1);	
+		}
 
-  //get only the values of the domain indicated by the user.
-  for(x=minX; x<=maxX; x=x+0.1){
-    y=expression(x);
-	if(y>=minY && y<=maxY){
-	  valeurs_x[j]=x;
-	  valeurs_y[j]=y;
-	  j++;
+		context.lineWidth = 2; 
+		context.strokeStyle = get_random_color(); 
+		context.stroke(); 
+		break;
+	  }
 	}
-  }
+	else{
+		console.log(data);
+	}
+  }, false);
 
-  context.beginPath(); 
-  
-  //Draw the graph
-  for(j=0;j<valeurs_x.length;j++){
-	context.moveTo(10*valeurs_x[j],10*(valeurs_y[j]) * -1);
-	context.lineTo(10*valeurs_x[j+1],10*(valeurs_y[j+1]) * -1);	
-  }
-  
-  context.lineWidth = 2; 
-  context.strokeStyle = get_random_color(); 
-  context.stroke(); 	
+  this.worker.postMessage({'cmd': WORKER_MANAGE_REQUEST.START});
+  this.worker.postMessage({'cmd': WORKER_MANAGE_REQUEST.SET_DATA1,
+  'expressionY' : expressionY,
+  'minX' : minX,
+  'maxX' : maxX,
+  'minY' : minY,
+  'maxY' : maxY
+  });
+  this.worker.postMessage({'cmd': WORKER_MANAGE_REQUEST.PERFORM});
+  this.worker.postMessage({'cmd': WORKER_MANAGE_REQUEST.CLOSE});
 }
-
-
-
-
-
