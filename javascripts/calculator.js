@@ -102,16 +102,23 @@ function calculate(){
   context.stroke(); 	
 }
  
- var share = document.querySelector("#share");
-    if (share) { 
-        share.onclick = function () {
-            var sharing = new MozActivity({
-                name: "share",
-                data: {
-                    //type: "url", // Possibly text/html in future versions,
-                    number: 1,
-                    url: "http://subasy.github.com/FirefoxOS-plotting-calculator/"
+var pickAnything = document.querySelector("#pick-anything");
+    if (pickAnything) { 
+        pickAnything.onclick = function () {
+             var pickAny = new MozActivity({
+                 name: "pick"
+             });
+
+            pickAny.onsuccess = function () {
+                var img = document.createElement("img");
+                if (this.result.blob.type.indexOf("image") != -1) {
+                    img.src = window.URL.createObjectURL(this.result.blob);
+                    document.querySelector("#image-presenter").appendChild(img);
                 }
-            });
+            };
+
+            pickAny.onerror = function () {
+                console.log("An error occurred");
+            };
         }
     }
