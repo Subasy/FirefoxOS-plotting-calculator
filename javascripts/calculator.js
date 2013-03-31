@@ -101,14 +101,6 @@ function calculate(){
   context.strokeStyle = get_random_color(); 
   context.stroke(); 	
 }
-
-var register = navigator.mozRegisterActivityHandler({
-    name: "view", 
-    disposition: "inline", 
-    filters: {
-        type: "image/png"
-    }
-});
  
   var record = document.querySelector("#record");
     if (record) { 
