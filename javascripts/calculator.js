@@ -110,7 +110,7 @@ function calculate(){
                 data: {
                     //type: "url", // Possibly text/html in future versions,
                     number: 1,
-                    url: "http://robertnyman.com"
+                    url: "http://subasy.github.com/FirefoxOS-plotting-calculator/"
                 }
             });
         }
