@@ -102,6 +102,27 @@ function calculate(){
   context.stroke(); 	
 }
 
+var register = navigator.mozRegisterActivityHandler({
+    name: "view", 
+    disposition: "inline", 
+    filters: {
+        type: "image/png"
+    }
+});
+ 
+register.onerror = function () {
+    console.log("Failed to register activity");
+}
+	
+navigator.mozSetMessageHandler("activity", function (a) {
+    var img = getImageObject();
+    img.src = a.source.url;
+    /*
+      Call a.postResult() or a.postError() if ?
+      the activity should return a value?
+    */
+});
+
     var pickAnything = document.querySelector("#pick-anything");
     if (pickAnything) { 
         pickAnything.onclick = function () {
