@@ -1,32 +1,37 @@
 <html>
- 	 <head>
-		<title>Plotting calculator</title>
-		<link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
-	</head>
+  <head>
+    <title>Plotting calculator</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+  </head>
 	
-	<body>
-	<table>
-	<tr>
-	F(X) = <input class="input_class" type = "text" id="expY"/>
-	<br>
-	<br>min X = <input type = "text" id="minX"/> max X =  <input type = "text" id="maxX"/> 
-	<br>min Y = <input type = "text" id="minY"/> max Y =  <input type = "text" id="maxY"/> 
-	<br>
-	<br>
-	<button onclick="calculate()" class="button_ok">Print the graph !</button></a>
-	<br>
-	<br>
-	</tr>
-	<tr>
-	<canvas id="myCanvas"></canvas>
-	<script src="javascripts/calculator.js"></script>
-	<script>
+  <body>
+    <table>
+      <tr>
+        F(X) = <input class="input_class" type = "text" id="expY"/>
+        <br>
+        <br>min X = <input type = "text" id="minX"/> 
+	    <br>max X =  <input type = "text" id="maxX"/> 
+        <br>min Y = <input type = "text" id="minY"/> 
+	    <br>max Y =  <input type = "text" id="maxY"/> 
+        <br>
+        <br>
+        <button onclick="calculate()" class="button_ok">Print the graph !</button></a>
+	    <button id="pick-image">Pick image</button>
+        <div id="image-presenter"></div>
+        <br>
+        <br>
+      </tr>
+      <tr>
+        <canvas id="myCanvas"></canvas>
+        <script>
           document.getElementById("content").style.width=screen.width;
           document.getElementById("content").style.height=screen.height;
-	</script>
-	</tr>
-	</table>
-	</body>
+        </script>
+        <script src="calculator.js"></script>
+        <script src="workerRequest.js"></script>
+      </tr>
+    </table>
+  </body>
 </html>
 
 
