@@ -109,10 +109,10 @@ var pickImage = document.querySelector("#pick-image");
                  name: "pick",
                  data: {
                      type: ["image/png", "image/jpg", "image/jpeg"]
-                  }
+                 }
              });
 
-            pick.onsuccess = function () { 
+            pick.onsuccess = function () {
                 var img = document.createElement("img");
                 img.src = window.URL.createObjectURL(this.result.blob);
                 var imagePresenter = document.querySelector("#image-presenter");
@@ -120,7 +120,7 @@ var pickImage = document.querySelector("#pick-image");
                 imagePresenter.style.display = "block";
             };
 
-            pick.onerror = function () { 
+            pick.onerror = function () {
                 alert("Can't view the image!");
             };
         }
