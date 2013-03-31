@@ -102,23 +102,16 @@ function calculate(){
   context.stroke(); 	
 }
  
-  var record = document.querySelector("#record");
-    if (record) { 
-        record.onclick = function () {
-            var rec = new MozActivity({
-                name: "record" // Possibly capture in future versions
+ var share = document.querySelector("#share");
+    if (share) { 
+        share.onclick = function () {
+            var sharing = new MozActivity({
+                name: "share",
+                data: {
+                    //type: "url", // Possibly text/html in future versions,
+                    number: 1,
+                    url: "http://robertnyman.com"
+                }
             });
-
-            rec.onsuccess = function () {
-                var img = document.createElement("img");
-                img.src = window.URL.createObjectURL(this.result.blob);
-                var imagePresenter = document.querySelector("#image-presenter");
-                imagePresenter.appendChild(img);
-                imagePresenter.style.display = "block";
-            };
-
-            rec.onerror = function () {
-                alert("No taken picture returned");
-            };
         }
     }
