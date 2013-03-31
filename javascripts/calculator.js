@@ -110,36 +110,23 @@ var register = navigator.mozRegisterActivityHandler({
     }
 });
  
-register.onerror = function () {
-    console.log("Failed to register activity");
-}
-	
-navigator.mozSetMessageHandler("activity", function (a) {
-    var img = getImageObject();
-    img.src = a.source.url;
-    /*
-      Call a.postResult() or a.postError() if ?
-      the activity should return a value?
-    */
-});
-
-    var pickAnything = document.querySelector("#pick-anything");
-    if (pickAnything) { 
-        pickAnything.onclick = function () {
-             var pickAny = new MozActivity({
-                 name: "pick"
+  var record = document.querySelector("#record");
+    if (record) { 
+        record.onclick = function () {
+            var rec = new MozActivity({
+                name: "record" // Possibly capture in future versions
             });
 
-            pickAny.onsuccess = function () {
+            rec.onsuccess = function () {
                 var img = document.createElement("img");
-                if (this.result.blob.type.indexOf("image") != -1) {
-                    img.src = window.URL.createObjectURL(this.result.blob);
-                    document.querySelector("#image-presenter").appendChild(img);
-                }
+                img.src = window.URL.createObjectURL(this.result.blob);
+                var imagePresenter = document.querySelector("#image-presenter");
+                imagePresenter.appendChild(img);
+                imagePresenter.style.display = "block";
             };
 
-            pickAny.onerror = function () {
-                console.log("An error occurred");
+            rec.onerror = function () {
+                alert("No taken picture returned");
             };
         }
     }
