@@ -102,26 +102,23 @@ function calculate(){
   context.stroke(); 	
 }
 
-var pickImage = document.querySelector("#pick-image");
-    if (pickImage) { 
-        pickImage.onclick = function () {
-             var pick = new MozActivity({
-                 name: "pick",
-                 data: {
-                     type: ["image/png", "image/jpg", "image/jpeg"]
-                 }
-             });
+    var pickAnything = document.querySelector("#pick-anything");
+    if (pickAnything) { 
+        pickAnything.onclick = function () {
+             var pickAny = new MozActivity({
+                 name: "pick"
+            });
 
-            pick.onsuccess = function () {
+            pickAny.onsuccess = function () {
                 var img = document.createElement("img");
-                img.src = window.URL.createObjectURL(this.result.blob);
-                var imagePresenter = document.querySelector("#image-presenter");
-                imagePresenter.appendChild(img);
-                imagePresenter.style.display = "block";
+                if (this.result.blob.type.indexOf("image") != -1) {
+                    img.src = window.URL.createObjectURL(this.result.blob);
+                    document.querySelector("#image-presenter").appendChild(img);
+                }
             };
 
-            pick.onerror = function () {
-                alert("Can't view the image!");
+            pickAny.onerror = function () {
+                console.log("An error occurred");
             };
         }
     }
