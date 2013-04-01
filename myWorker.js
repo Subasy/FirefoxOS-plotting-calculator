@@ -2,10 +2,12 @@ self.addEventListener('message', function(e) {
   var data = e.data;
   switch (data.cmd) {
     case 0:
-    importScripts("workerRequest.js");
+	//get the request name description file
+    importScripts("workerRequest.js"); 
 	  postMessage({'cmd' : WORKER_MESSAGE.LOADED});
 	  break;
 	case 1:
+	  //Get the values
 	  self.expressionY=data.expressionY;
 	  self.minX=data.minX;
 	  self.maxX=data.maxX;
@@ -13,6 +15,7 @@ self.addEventListener('message', function(e) {
 	  self.maxY=data.maxY;
 	  break;
 	case 2:
+	  //calculate the arrays values
 	  var expression = eval("(function(x) {"+
 		"var ln=Math.ln;"+
 		"var sin=Math.sin;"+
@@ -44,10 +47,12 @@ self.addEventListener('message', function(e) {
 		  j++;
 		}
 	  }
-
+      
+	  //send the arrays to "calculator.js".
 	  postMessage({'cmd' : WORKER_MESSAGE.CMD1,'valeurs_x' : valeurs_x, 'valeurs_y' : valeurs_y});
 	  break;
   case 3:
+	//close the worker.
     self.close();
     break;
   };
