@@ -5,7 +5,10 @@ canvas = document.getElementById('myCanvas');
 context = canvas.getContext('2d'); 
 drawAxes(); 
 
-//Function : calculate axes dimensions.
+  /***************************************************************
+     Function showAxes(ctx,axes)
+	 enables to calculate axes for the graph.
+  ***************************************************************/
 function showAxes(ctx,axes) {
 
   var x0=axes.x0, w=ctx.canvas.width;
@@ -20,7 +23,10 @@ function showAxes(ctx,axes) {
 	
 }
 
-//Function: draw axes.
+  /***************************************************************
+     Function drawAxes()
+	 enables to draw axes for the graph.
+  ***************************************************************/
 function drawAxes(){
 
   var axes={};
@@ -35,7 +41,10 @@ function drawAxes(){
   context.translate(canvas.width / 2, canvas.height / 2);
 }
 
-//Function : generate random colors.
+  /***************************************************************
+     Function get_random_color()
+	 enables to generate random color for each new graph.
+  ***************************************************************/
 function get_random_color() {
   var letters = '0123456789ABCDEF'.split('');
   var color = '#';
@@ -45,7 +54,10 @@ function get_random_color() {
   return color;
 }
 
-//Function : calculate the mathematic expression and print it.
+  /***************************************************************
+     Function calculate()
+	 enables to print the graph.
+  ***************************************************************/
 function calculate(){
 
   var buffer1=new ArrayBuffer(1000*4);
@@ -53,13 +65,32 @@ function calculate(){
   var valeurs_x=new Float32Array(buffer1); 	
   var valeurs_y=new Float32Array(buffer2); 	
   var expressionY = document.getElementById("expY").value;
-  var minX = parseFloat(document.getElementById("minX").value);
-  var maxX = parseFloat(document.getElementById("maxX").value);
-  var minY = parseFloat(document.getElementById("minY").value);
-  var maxY = parseFloat(document.getElementById("maxY").value);
- 
-  this.worker = new Worker('myWorker.js');
-  this.worker.addEventListener('message', function(e) {
+  
+  /*verify if all the fields are filled.*/
+  if(expressionY == "" || 
+  document.getElementById("minX").value == "" || 
+  document.getElementById("maxX").value=="" || 
+  document.getElementById("minY").value=="" || 
+  document.getElementById("maxY").value== ""){
+  alert("Please fill all the field !");
+  }
+  
+  else{
+  /* If values are filled :
+	 1/Recover the values.
+	 2/Create the worker.
+	 3/Recover the arrays filled by the worker.
+	 @see "myWorker.js"  */
+	 
+    var minX = parseFloat(document.getElementById("minX").value);
+    var maxX = parseFloat(document.getElementById("maxX").value);
+    var minY = parseFloat(document.getElementById("minY").value);
+    var maxY = parseFloat(document.getElementById("maxY").value);
+
+	drawAxes(); 
+	  
+    this.worker = new Worker('myWorker.js');
+    this.worker.addEventListener('message', function(e) {
     var data = e.data;
 	if(data.cmd!=undefined){
 	  switch(data.cmd){
@@ -67,6 +98,11 @@ function calculate(){
 	    this.valeurs_x=data.valeurs_x;
 		this.valeurs_y=data.valeurs_y;
 		
+  /* 1/The graph is drawn thanks to the creation of coordinates 
+	 with the arrays valeurs_x and valeurs_y values.
+	 2/Line Width is about 2 pixel.
+	 3/A random color is generated for each new graph. */
+	 
 		context.beginPath(); 
 			
 		for(j=0;j<valeurs_x.length;j++){
@@ -85,6 +121,12 @@ function calculate(){
 	}
   }, false);
 
+  /* 1/ Initiate the worker
+     2/ send the data
+	 3/ do action in the data
+	 4/ close the worker
+	 @see "workerRequest.js" */
+	 
   this.worker.postMessage({'cmd': WORKER_MANAGE_REQUEST.START});
   this.worker.postMessage({'cmd': WORKER_MANAGE_REQUEST.SET_DATA1,
   'expressionY' : expressionY,
@@ -95,4 +137,5 @@ function calculate(){
   });
   this.worker.postMessage({'cmd': WORKER_MANAGE_REQUEST.PERFORM});
   this.worker.postMessage({'cmd': WORKER_MANAGE_REQUEST.CLOSE});
+  }
 }
