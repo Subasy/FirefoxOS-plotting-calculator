@@ -140,7 +140,8 @@ function calculate(){
   'minX' : minX,
   'maxX' : maxX,
   'minY' : minY,
-  'maxY' : maxY
+  'maxY' : maxY,
+  'size' : canvas.width
   });
   this.worker.postMessage({'cmd': WORKER_MANAGE_REQUEST.PERFORM});
   this.worker.postMessage({'cmd': WORKER_MANAGE_REQUEST.CLOSE});
