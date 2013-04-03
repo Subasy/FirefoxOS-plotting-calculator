@@ -89,7 +89,7 @@ function calculate(){
 
 	drawAxes(); 
 	  
-    this.worker = new Worker('javascripts/myWorker.js');
+    this.worker = new Worker('myWorker.js');
     this.worker.addEventListener('message', function(e) {
     var data = e.data;
 	if(data.cmd!=undefined){
@@ -100,24 +100,31 @@ function calculate(){
 		
   /* 1/The graph is drawn thanks to the creation of coordinates 
 	 with the arrays valeurs_x and valeurs_y values.
+	 2/ Graph zoom depends on domain values.
 	 2/Line Width is about 2 pixel.
 	 3/A random color is generated for each new graph. */
 	 
-		context.beginPath(); 
-			
-		for(j=0;j<valeurs_x.length;j++){
-		  context.moveTo(10*this.valeurs_x[j],10*(this.valeurs_y[j]) * -1);
-		  context.lineTo(10*this.valeurs_x[j+1],10*(this.valeurs_y[j+1]) * -1);	
-		}
+	context.beginPath(); 
+		
+	var minZoom=Math.max(minX,minY);
+	var maxZoom=Math.max(maxX,maxY);
+	var zoom=Math.max(minZoom,maxZoom);
+	var size=Math.min(canvas.width, canvas.height);
+		
+	for(j=0;j<valeurs_x.length-2;j++){
+	  context.moveTo((size/zoom)*this.valeurs_x[j],(size/zoom)*(this.valeurs_y[j]) * -1);
+	  context.lineTo((size/zoom)*this.valeurs_x[j+1],(size/zoom)*(this.valeurs_y[j+1]) * -1);	
+	}
 
-		context.lineWidth = 2; 
-		context.strokeStyle = get_random_color(); 
-		context.stroke(); 
-		break;
+	context.lineWidth = 2; 
+		
+	context.strokeStyle = get_random_color(); 
+	context.stroke(); 
+	break;
 	  }
 	}
 	else{
-		console.log(data);
+	  console.log(data);
 	}
   }, false);
 
