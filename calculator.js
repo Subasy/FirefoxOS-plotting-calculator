@@ -105,7 +105,7 @@ function calculate(){
 	 
 		context.beginPath(); 
 			
-		for(j=0;j<valeurs_x.length;j++){
+		for(j=0;j<valeurs_x.length-2;j++){
 		  context.moveTo(10*this.valeurs_x[j],10*(this.valeurs_y[j]) * -1);
 		  context.lineTo(10*this.valeurs_x[j+1],10*(this.valeurs_y[j+1]) * -1);	
 		}
