@@ -13,6 +13,7 @@ self.addEventListener('message', function(e) {
 	  self.maxX=data.maxX;
 	  self.minY=data.minY;
 	  self.maxY=data.maxY;
+	  self.size=data.size;
 	  break;
 	case "perform":
 	  //calculate the arrays values
