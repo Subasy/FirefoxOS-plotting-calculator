@@ -89,7 +89,7 @@ function calculate(){
 
 	drawAxes(); 
 	  
-    this.worker = new Worker('myWorker.js');
+    this.worker = new Worker('javascripts/myWorker.js');
     this.worker.addEventListener('message', function(e) {
     var data = e.data;
 	if(data.cmd!=undefined){
