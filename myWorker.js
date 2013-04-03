@@ -39,7 +39,7 @@ self.addEventListener('message', function(e) {
 	  var x;
 	  var y; 
 	  
-	  for(var x=self.minX; x<=self.maxX; x+=0.1){
+	  for(var x=self.minX; x<=self.maxX; x+=((Math.abs(self.maxX)+Math.abs(self.minX))/self.size)){
 		var y=expression(x);
 		if(y>=self.minY && y<=self.maxY){
 		  valeurs_x[j]=x;
