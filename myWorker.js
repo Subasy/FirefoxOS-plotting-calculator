@@ -29,6 +29,10 @@ self.addEventListener('message', function(e) {
 		"var exp=Math.exp;"+
 		"var log=Math.log;"+
 		"var tan=Math.tan;"+
+		"var acos=Math.acos;"+
+		"var asin=Math.asin;"+
+		"var atan=Math.atan;"+
+		"var random=Math.random;"+
 		"var x=x;"+
 		"return "+self.expressionY+";})");
 		
