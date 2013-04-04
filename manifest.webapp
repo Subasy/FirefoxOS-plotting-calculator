@@ -1,7 +1,6 @@
 {
   "name": "MathGraphz",
   "description": "Calculator for mathematics functions",
-  "launch_path": "http://subasy.github.com/FirefoxOS-plotting-calculator/",
   "developer": {
     "name": "Sylvie Ranga",
     "url": "http://subasy.github.com/FirefoxOS-plotting-calculator/"
