@@ -1,7 +1,7 @@
 {
-  "name": "FirefoxOS-plotting-calculator",
+  "name": "Plotting Calculator",
   "description": "Calculator for mathematics functions",
-  "launch_path": "http://subasy.github.com/FirefoxOS-plotting-calculator/",
+  "launch_path": "http://subasy.github.com/FirefoxOS-plotting-calculator/index.html",
   "icons": {
     "128": "/img/icon-128.png"
   },
