@@ -1,6 +1,8 @@
 {
   "name": "MathGraphz",
   "description": "Calculator for mathematics functions",
+  "icons": {
+  },
   "developer": {
     "name": "Sylvie Ranga",
     "url": "http://subasy.github.com/FirefoxOS-plotting-calculator/"
