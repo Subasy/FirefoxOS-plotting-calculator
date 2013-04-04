@@ -132,6 +132,8 @@ function calculate(){
 	 4/ close the worker
 	 @see "workerRequest.js" */
 	 
+  var size=Math.max(canvas.width,canvas.height);
+  
   this.worker.postMessage({'cmd': WORKER_MANAGE_REQUEST.START});
   this.worker.postMessage({'cmd': WORKER_MANAGE_REQUEST.SET_DATA1,
   'expressionY' : expressionY,
@@ -139,7 +141,7 @@ function calculate(){
   'maxX' : maxX,
   'minY' : minY,
   'maxY' : maxY,
-  'size' : canvas.width
+  'size' : size
   });
   this.worker.postMessage({'cmd': WORKER_MANAGE_REQUEST.PERFORM});
   this.worker.postMessage({'cmd': WORKER_MANAGE_REQUEST.CLOSE});
