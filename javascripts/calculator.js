@@ -113,7 +113,7 @@ function calculate(){
 	
 	context.fillStyle = get_random_color(); 
 	for(j=0;j<valeurs_x.length-2;j++){
-	  context.fillRect((size/zoom)*this.valeurs_x[j],(size/zoom)*(this.valeurs_y[j]) * -1,5,5);	
+	  context.fillRect((size/zoom)*this.valeurs_x[j],(size/zoom)*(this.valeurs_y[j]) * -1,1,5);	
 	}
 
 	context.lineWidth = 2; 
