@@ -110,15 +110,13 @@ function calculate(){
 	var maxZoom=Math.max(maxX,maxY);
 	var zoom=Math.max(minZoom,maxZoom);
 	var size=Math.min(canvas.width, canvas.height);
-		
+	
+	context.fillStyle = get_random_color(); 
 	for(j=0;j<valeurs_x.length-2;j++){
-	  context.moveTo((size/zoom)*this.valeurs_x[j],(size/zoom)*(this.valeurs_y[j]) * -1);
-	  context.lineTo((size/zoom)*this.valeurs_x[j+1],(size/zoom)*(this.valeurs_y[j+1]) * -1);	
+	  context.fillRect((size/zoom)*this.valeurs_x[j],(size/zoom)*(this.valeurs_y[j]) * -1,1,5);	
 	}
 
 	context.lineWidth = 2; 
-		
-	context.strokeStyle = get_random_color(); 
 	context.stroke(); 
 	break;
 	  }
