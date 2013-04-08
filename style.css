@@ -41,13 +41,12 @@ margin-right:15px;
 	display:inline-block;
 	color:#ffffff;
 	font-family:arial;
-	font-size:0.9em;
+	font-size:1em;
 	font-weight:bold;
 	padding:1% 1%;
 	text-decoration:none;
 	text-shadow:1px 1px 0px #528ecc;
 }
-
 .button_ok {
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff) );
 	background:-moz-linear-gradient( center top, #378de5 5%, #79bbff 100% );
