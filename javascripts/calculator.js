@@ -30,8 +30,12 @@ function showAxes(ctx,axes) {
 function drawAxes(){
 
   var axes={};
-  canvas.width=window.innerWidth-window.innerWidth/5;
-  canvas.height=window.innerHeight-window.innerHeight/3;
+  var eltBackground = document.getElementById("background");
+  var backgroundRect = eltBackground.getBoundingClientRect();
+  var width = Math.round(backgroundRect.width);
+  var height = Math.round(backgroundRect.height);
+  canvas.width=width;
+  canvas.height=height;
   axes.x0 = .5 + .5*canvas.width;  
   axes.y0 = .5 + .5*canvas.height; 
   axes.scale = 10;                 
