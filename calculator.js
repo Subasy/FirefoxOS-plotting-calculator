@@ -3,7 +3,7 @@ var context;
 
 canvas = document.getElementById('myCanvas');
 context = canvas.getContext('2d'); 
-drawAxes(); 
+//drawAxes(); 
 
   /***************************************************************
      Function showAxes(ctx,axes)
@@ -59,7 +59,6 @@ function get_random_color() {
 	 enables to print the graph.
   ***************************************************************/
 function calculate(){
-
   var buffer1=new ArrayBuffer(1000*4);
   var buffer2=new ArrayBuffer(1000*4); 
   var valeurs_x=new Float32Array(buffer1); 	
@@ -95,6 +94,8 @@ function calculate(){
 	if(data.cmd!=undefined){
 	  switch(data.cmd){
 	  case WORKER_MESSAGE.CMD1:
+	  document.getElementById("form").style.display="none";
+      document.getElementById("previous").innerHTML=" <button class=\"button_ok\" onclick=back()>back</button>";
 	    this.valeurs_x=data.valeurs_x;
 		this.valeurs_y=data.valeurs_y;
 		
@@ -145,4 +146,14 @@ function calculate(){
   this.worker.postMessage({'cmd': WORKER_MANAGE_REQUEST.PERFORM});
   this.worker.postMessage({'cmd': WORKER_MANAGE_REQUEST.CLOSE});
   }
+}
+
+  /***************************************************************
+     Function back()
+	 returns to the function definition page.
+  ***************************************************************/
+function back(){
+document.getElementById("myCanvas").style.display="none";
+document.getElementById("form").style.display="";
+document.getElementById("previous").innerHTML="";
 }
