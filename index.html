@@ -3,29 +3,36 @@
     <title>Plotting calculator</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
   </head>
-	
   <body>
-    <table>
-      <tr>
-        F(X) = <input class="input_class" type = "text" id="expY"/>
-        <br>
-        <br>min X = <input class="input2_class" type = "text" id="minX"/>&nbsp max X =  <input class="input2_class" type = "text" id="maxX"/> 
-        <br>min Y = <input class="input2_class" type = "text" id="minY"/>&nbsp max Y =  <input class="input2_class" type = "text" id="maxY"/> 
-        <br>
-        <br>
-        <button onclick="calculate()" class="button_ok">Print the graph !</button></a>
-        <br>
-        <br>
-      </tr>
-      <tr>
-      <canvas id="myCanvas"></canvas>
-      <script>
-        document.getElementById("content").style.width=screen.width;
-        document.getElementById("content").style.height=screen.height;
-      </script>
+  <div id="previous">
+  </div>
+	<div id="container" class="container">
+      <div id="form">
+		Enter a mathematic function:
+	  <br><input class="input_class" type = "text" id="expY"/>
+      <br>
+      <br>Enter a minimal value for x :
+      <br><input class="input2_class" type = "text" id="minX"/>
+      <br>
+	  <br>Enter a maximal value for x :
+	  <br><input class="input2_class" type = "text" id="maxX"/> 
+      <br>
+	  <br>Enter a minimal value for y :
+	  <br><input class="input2_class" type = "text" id="minY"/>
+      <br>
+      <br>Enter a maximal value for y : 
+	  <br><input class="input2_class" type = "text" id="maxY"/> 
+      <br>
+      <br>
+      <button onclick="calculate()" class="button_ok">Print the graph !</button></a>
+	  </div>
+	</div>
+      <canvas id="myCanvas" class="myCanvas"></canvas>
       <script src="javascripts/calculator.js"></script>
       <script src="javascripts/workerRequest.js"></script>
-      </tr>
-    </table>
+	  <script>
+        document.getElementById("myCanvas").style.width=screen.width;
+        document.getElementById("myCanvas").style.height=screen.height;
+      </script>
   </body>
 </html>
